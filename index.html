@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Josue Cespedes</title>
+</head>
+<body>
+    <div id="container">
+        <div id="lista">
+
+        </div>
+        <div id="botones">
+            <button onclick="colocarDatos()">Mostrar Estudiantes</button>
+            <button onclick="calcularPromedio()">Calcular Nota Promedio</button>
+        </div>
+    </div>
+    <script>
+        var estudiantes = [{
+            "codigo" : "0001",
+            "nombre" : "Juan Perez",
+            "nota" : "83"
+        },{
+            "codigo" : "0002",
+            "nombre" : "Jose Almonte",
+            "nota" : "86"
+        },{
+            "codigo" : "0003",
+            "nombre" : "Ester Cespedes",
+            "nota" : "87"
+        },{
+            "codigo" : "0004",
+            "nombre" : "Rufino Acosta",
+            "nota" : "88"
+        },{
+            "codigo" : "0005",
+            "nombre" : "Marina Angomas",
+            "nota" : "89"
+        },{
+            "codigo" : "0006",
+            "nombre" : "Wandy Hierro",
+            "nota" : "92"
+        },{
+            "codigo" : "0007",
+            "nombre" : "Sonia Thomas",
+            "nota" : "98"
+        },{
+            "codigo" : "0008",
+            "nombre" : "Gledy Castillo",
+            "nota" : "95"
+        },{
+            "codigo" : "0009",
+            "nombre" : "Nery Hernandez",
+            "nota" : "93"
+        },{
+            "codigo" : "0010",
+            "nombre" : "Bernabe Cruz",
+            "nota" : "91"
+        }]
+
+        function leerDatos (json){
+            var dato = "-----------Total de Estudiantes-----------<br>";
+            var i;
+            for(i=0;i<json.length;i++){
+                dato += "Codigo: "+json[i].codigo+"<br>Nombre: "+json[i].nombre+"<br>Nota: "+json[i].nota+"<br><br>";
+            }
+            document.getElementById("lista").innerHTML = dato;
+        }        
+        function colocarDatos(){
+             leerDatos(estudiantes);
+        }
+    </script>
+</body>
+</html>
