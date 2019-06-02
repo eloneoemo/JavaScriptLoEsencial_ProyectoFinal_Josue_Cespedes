@@ -1,165 +1,88 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Josue Cespedes</title>
-    <style type="text/css">
-        #container{
-            background-color: antiquewhite;
-            max-width: 990px;
-            margin: 0 auto;
-            padding: 2em;
-            text-align: center;
-        }
-        button{
-            background: #ccc;
-            padding: 0.5em;
-            margin: 0 auto;
-        }
-        table{
-            width: 500px;
-            margin: 0 auto;
-            margin-top: 1em;
-            border-collapse: collapse;
-        }
-        table caption{
-            background-color: #ccc;
-        }
-        table, th, td{
-            border: 1px solid grey
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
+  <title>Calculadora</title>
+  <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <div id="container">
-        <div id="botones">
-            <button onclick="colocarDatos()">Mostrar Estudiantes</button>
-            <button onclick="mostrarPromedio()">Calcular Nota Promedio</button>
-            <button onclick="mostrarMayorNota()">Calcular Mayor Nota</button>
-            <button onclick="mostrarMenorNota()">Calcular Menor Nota</button>
-        </div>
-        <div id="lista">
-            
-
-        </div>
+  <div class="fondo">
+    <div class="titulo-container">
+      <h1>¡No pierdas <span>la cuenta!</span></h1>
     </div>
-    <script>
-        var estudiantes = [{
-            "codigo" : "0001",
-            "nombre" : "Juan Perez",
-            "nota" : 91
-        },{
-            "codigo" : "0002",
-            "nombre" : "Jose Almonte",
-            "nota" : 86
-        },{
-            "codigo" : "0003",
-            "nombre" : "Ester Cespedes",
-            "nota" : 89
-        },{
-            "codigo" : "0004",
-            "nombre" : "Rufino Acosta",
-            "nota" : 88
-        },{
-            "codigo" : "0005",
-            "nombre" : "Marina Angomas",
-            "nota" : 98
-        },{
-            "codigo" : "0006",
-            "nombre" : "Wandy Hierro",
-            "nota" : 92
-        },{
-            "codigo" : "0007",
-            "nombre" : "Sonia Thomas",
-            "nota" : 87
-        },{
-            "codigo" : "0008",
-            "nombre" : "Gledy Castillo",
-            "nota" : 95
-        },{
-            "codigo" : "0009",
-            "nombre" : "Nery Hernandez",
-            "nota" : 93
-        },{
-            "codigo" : "0010",
-            "nombre" : "Bernabe Cruz",
-            "nota" : 81
-        }]
 
-        function leerDatos (json){
-            title = "Lista de Estudiantes"
-            var dato = "";
-            var i;
-            for(i=0;i<json.length;i++){
-                dato += "<tr><td>"+json[i].codigo+"</td><td>"+json[i].nombre+"</td><td>"+json[i].nota+"</td></tr>";
-            }
-            tabular(title,dato);
-        }
-        function calcularPromedio(json){
-            title = "Promedio"
-            var dato = "";
-            var i;
-            var promedio = 0.0;
-            for(i=0;i<json.length;i++){
-               promedio += json[i].nota
-            }
-            dato = promedio/json.length;
-            tabular(title, dato)            
-        }
-        function calcularMayorNota(json){
-            title = "Nota más alta";
-            var dato = "";
-            var i;
-            notas = []
-            for(i=0;i<json.length;i++){
-             notas.push(json[i].nota)
-            }
-            var maximo = Math.max.apply(null , notas);
-            for(i=0;i<json.length;i++){
-                if(json[i].nota === maximo){
-                    dato += "<tr><td>"+json[i].codigo+"</td><td>"+json[i].nombre+"</td><td>"+json[i].nota+"</td></tr>";
-                }
-                tabular(title,dato)
-            }                
-        }
-        function calcularMenorNota(json){
-            title = "Nota más baja";
-            var dato = "";
-            var i;
-            notas = []
-            for(i=0;i<json.length;i++){
-             notas.push(json[i].nota)
-            }
-            var minimo = Math.min.apply(null , notas);            
-            for(i=0;i<json.length;i++){
-                if(json[i].nota === minimo){
-                    dato += "<tr><td>"+json[i].codigo+"</td><td>"+json[i].nombre+"</td><td>"+json[i].nota+"</td></tr>";
-                }
-                tabular(title, dato)
-            }        
-        }
-        function tabular(title,info) {
-            if(title ==="Promedio"){
-                var plantilla = "<table><caption><h3>"+title+"</h3></caption><tr><th>Nota Promedio</th></tr><tr><td>"+info+"</td></tr></table>"
-            }else{
-                var plantilla = "<table><caption><h3>"+title+"</h3></caption><tr><th>Código</th><th>Nombre</th><th>Nota</th></tr>"+info+"</table>"
-            }
-            document.getElementById("lista").innerHTML = plantilla
-        }
-        function colocarDatos(){
-             leerDatos(estudiantes);
-        }
-        function mostrarPromedio(){
-            calcularPromedio(estudiantes);
-        }
-        function mostrarMayorNota(){
-            calcularMayorNota(estudiantes)
-        }
-        function mostrarMenorNota(){
-            calcularMenorNota(estudiantes)
-        }
-    </script>
+    <div class="notas-container">
+      <h2>Tus apuntes...</h2>
+      <textarea class="nota-input" placeholder="Escribe aquí..."></textarea>
+    </div>
+
+    <div id="calculadoraFondo">
+      <div class="pantalla">
+        <span id="display">0</span>
+      </div>
+
+      <div class="teclado">
+        <img src="image/ON.png" alt="On" class="tecla" id="on"/>
+        <img src="image/sign.png" alt="signo" class="tecla" id="sign"/>
+        <img src="image/raiz.png" alt="raiz" class="tecla" id="raiz"/>
+        <img src="image/dividido.png" alt="dividido" class="tecla divide" id="dividido"/>
+
+        <img src="image/7.png" alt="7" class="tecla" id="7"/>
+        <img src="image/8.png" alt="8" class="tecla" id="8"/>
+        <img src="image/9.png" alt="9" class="tecla" id="9"/>
+        <img src="image/por.png" alt="por" class="tecla multiplica" id="por"/>
+
+        <img src="image/4.png" alt="4" class="tecla" id="4"/>
+        <img src="image/5.png" alt="5" class="tecla" id="5"/>
+        <img src="image/6.png" alt="6" class="tecla" id="6"/>
+        <img src="image/menos.png" alt="menos" class="tecla resta" id="menos"/>
+
+        <div class="row">
+          <div class="col1">
+            <img src="image/1.png" alt="1" class="tecla" id="1"/>
+            <img src="image/2.png" alt="2" class="tecla" id="2"/>
+            <img src="image/3.png" alt="3" class="tecla" id="3"/>
+
+            <img src="image/0.png" alt="0" class="tecla" id="0"/>
+            <img src="image/punto.png" alt="punto" class="tecla" id="punto"/>
+            <img src="image/igual.png" alt="igual" class="tecla" id="igual"/>
+          </div>
+          <div class="col2">
+            <img src="image/mas.png" alt="mas" class="tecla suma" id="mas"/>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="container-libreta">
+      <div class="libreta">
+        <div class="contenido-ingresos">
+          <h3>Ingresos</h3>
+          <ul>
+            <li><span>Salario: </span>$1300.00</li>
+            <li><span>Bonificación: </span>$200.00</li>
+          </ul>
+        </div>
+        <div class="contenido-egresos">
+          <h3>Egresos</h3>
+          <ul>
+            <li><span>Renta: </span>$300.00</li>
+            <li><span>Alimentos: </span>$250.00</li>
+            <li><span>Restaurantes: </span>$120.00</li>
+            <li><span>Automóvil: </span>$100.00</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <script src="js/app.js"></script>
 </body>
 </html>
