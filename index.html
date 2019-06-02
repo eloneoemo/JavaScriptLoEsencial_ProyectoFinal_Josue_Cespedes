@@ -14,6 +14,7 @@
         <div id="botones">
             <button onclick="colocarDatos()">Mostrar Estudiantes</button>
             <button onclick="mostrarPromedio()">Calcular Nota Promedio</button>
+            <button onclick="mostrarMayorNota()">Calcular Mayor Nota</button>
         </div>
     </div>
     <script>
@@ -76,12 +77,28 @@
             }
             document.getElementById("lista").innerHTML = dato + "<br>"+promedio/json.length;
         }
+        function calcularMayorNota(json){
+            var dato = "-----------Nota Más Alta-----------<br>";
+            var i;
+            notas = []
+            for(i=0;i<json.length;i++){
+             notas.push(json[i].nota)
+            }
+            //notas.sort()
+            var maximo = Math.max.apply(null , notas);
+            document.getElementById("lista").innerHTML = dato + "<br>"+maximo;
+
+            
+        }
         function colocarDatos(){
              leerDatos(estudiantes);
         }
 
         function mostrarPromedio(){
             calcularPromedio(estudiantes);
+        }
+        function mostrarMayorNota(){
+            calcularMayorNota(estudiantes)
         }
     </script>
 </body>
