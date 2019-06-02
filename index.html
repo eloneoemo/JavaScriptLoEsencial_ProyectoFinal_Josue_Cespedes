@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Josue Cespedes</title>
+    <style type="text/css">
+        #container{
+            background-color: antiquewhite;
+            max-width: 990px;
+            margin: 0 auto;
+            padding: 2em;
+            text-align: center;
+        }
+        button{
+            background: #ccc;
+            padding: 0.5em;
+            margin: 0 auto;
+        }
+        table{
+            width: 500px;
+            margin: 0 auto;
+            margin-top: 1em;
+            border-collapse: collapse;
+        }
+        table caption{
+            background-color: #ccc;
+        }
+        table, th, td{
+            border: 1px solid grey
+        }
+    </style>
 </head>
 <body>
     <div id="container">
@@ -14,13 +40,16 @@
             <button onclick="mostrarMayorNota()">Calcular Mayor Nota</button>
             <button onclick="mostrarMenorNota()">Calcular Menor Nota</button>
         </div>
-        <div id="lista"></div>
+        <div id="lista">
+            
+
+        </div>
     </div>
     <script>
         var estudiantes = [{
             "codigo" : "0001",
             "nombre" : "Juan Perez",
-            "nota" : 81
+            "nota" : 91
         },{
             "codigo" : "0002",
             "nombre" : "Jose Almonte",
@@ -28,7 +57,7 @@
         },{
             "codigo" : "0003",
             "nombre" : "Ester Cespedes",
-            "nota" : 87
+            "nota" : 89
         },{
             "codigo" : "0004",
             "nombre" : "Rufino Acosta",
@@ -36,7 +65,7 @@
         },{
             "codigo" : "0005",
             "nombre" : "Marina Angomas",
-            "nota" : 89
+            "nota" : 98
         },{
             "codigo" : "0006",
             "nombre" : "Wandy Hierro",
@@ -44,7 +73,7 @@
         },{
             "codigo" : "0007",
             "nombre" : "Sonia Thomas",
-            "nota" : 98
+            "nota" : 87
         },{
             "codigo" : "0008",
             "nombre" : "Gledy Castillo",
@@ -56,28 +85,32 @@
         },{
             "codigo" : "0010",
             "nombre" : "Bernabe Cruz",
-            "nota" : 91
+            "nota" : 81
         }]
 
         function leerDatos (json){
-            var dato = "-----------Total de Estudiantes-----------<br><br>";
+            title = "Lista de Estudiantes"
+            var dato = "";
             var i;
             for(i=0;i<json.length;i++){
-                dato += "Codigo: "+json[i].codigo+"<br>Nombre: "+json[i].nombre+"<br>Nota: "+json[i].nota+"<br><br>";
+                dato += "<tr><td>"+json[i].codigo+"</td><td>"+json[i].nombre+"</td><td>"+json[i].nota+"</td></tr>";
             }
-            document.getElementById("lista").innerHTML = dato;
+            tabular(title,dato);
         }
         function calcularPromedio(json){
-            var dato = "-----------Nota Total Promedio-----------<br>";
+            title = "Promedio"
+            var dato = "";
             var i;
             var promedio = 0.0;
             for(i=0;i<json.length;i++){
                promedio += json[i].nota
             }
-            document.getElementById("lista").innerHTML = dato + "<br>"+promedio/json.length;
+            dato = promedio/json.length;
+            tabular(title, dato)            
         }
         function calcularMayorNota(json){
-            var dato = "-----------Nota Más Alta-----------<br><br>";
+            title = "Nota más alta";
+            var dato = "";
             var i;
             notas = []
             for(i=0;i<json.length;i++){
@@ -86,12 +119,14 @@
             var maximo = Math.max.apply(null , notas);
             for(i=0;i<json.length;i++){
                 if(json[i].nota === maximo){
-                    document.getElementById("lista").innerHTML = dato+"Codigo: "+json[i].codigo+"<br>Nombre: "+json[i].nombre+"<br>Nota: "+json[i].nota+"<br><br>";
+                    dato += "<tr><td>"+json[i].codigo+"</td><td>"+json[i].nombre+"</td><td>"+json[i].nota+"</td></tr>";
                 }
+                tabular(title,dato)
             }                
         }
         function calcularMenorNota(json){
-            var dato = "-----------Nota Más Baja-----------<br><br>";
+            title = "Nota más baja";
+            var dato = "";
             var i;
             notas = []
             for(i=0;i<json.length;i++){
@@ -100,9 +135,18 @@
             var minimo = Math.min.apply(null , notas);            
             for(i=0;i<json.length;i++){
                 if(json[i].nota === minimo){
-                    document.getElementById("lista").innerHTML = dato+"Codigo: "+json[i].codigo+"<br>Nombre: "+json[i].nombre+"<br>Nota: "+json[i].nota+"<br><br>";
+                    dato += "<tr><td>"+json[i].codigo+"</td><td>"+json[i].nombre+"</td><td>"+json[i].nota+"</td></tr>";
                 }
+                tabular(title, dato)
             }        
+        }
+        function tabular(title,info) {
+            if(title ==="Promedio"){
+                var plantilla = "<table><caption><h3>"+title+"</h3></caption><tr><th>Nota Promedio</th></tr><tr><td>"+info+"</td></tr></table>"
+            }else{
+                var plantilla = "<table><caption><h3>"+title+"</h3></caption><tr><th>Código</th><th>Nombre</th><th>Nota</th></tr>"+info+"</table>"
+            }
+            document.getElementById("lista").innerHTML = plantilla
         }
         function colocarDatos(){
              leerDatos(estudiantes);
