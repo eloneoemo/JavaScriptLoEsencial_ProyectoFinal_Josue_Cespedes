@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +8,13 @@
 </head>
 <body>
     <div id="container">
-        <div id="lista">
-
-        </div>
         <div id="botones">
             <button onclick="colocarDatos()">Mostrar Estudiantes</button>
             <button onclick="mostrarPromedio()">Calcular Nota Promedio</button>
             <button onclick="mostrarMayorNota()">Calcular Mayor Nota</button>
             <button onclick="mostrarMenorNota()">Calcular Menor Nota</button>
         </div>
+        <div id="lista"></div>
     </div>
     <script>
         var estudiantes = [{
@@ -62,7 +60,7 @@
         }]
 
         function leerDatos (json){
-            var dato = "-----------Total de Estudiantes-----------<br>";
+            var dato = "-----------Total de Estudiantes-----------<br><br>";
             var i;
             for(i=0;i<json.length;i++){
                 dato += "Codigo: "+json[i].codigo+"<br>Nombre: "+json[i].nombre+"<br>Nota: "+json[i].nota+"<br><br>";
@@ -79,29 +77,36 @@
             document.getElementById("lista").innerHTML = dato + "<br>"+promedio/json.length;
         }
         function calcularMayorNota(json){
-            var dato = "-----------Nota Más Alta-----------<br>";
+            var dato = "-----------Nota Más Alta-----------<br><br>";
             var i;
             notas = []
             for(i=0;i<json.length;i++){
              notas.push(json[i].nota)
             }
             var maximo = Math.max.apply(null , notas);
-            document.getElementById("lista").innerHTML = dato + "<br>"+maximo;            
+            for(i=0;i<json.length;i++){
+                if(json[i].nota === maximo){
+                    document.getElementById("lista").innerHTML = dato+"Codigo: "+json[i].codigo+"<br>Nombre: "+json[i].nombre+"<br>Nota: "+json[i].nota+"<br><br>";
+                }
+            }                
         }
         function calcularMenorNota(json){
-            var dato = "-----------Nota Más Baja-----------<br>";
+            var dato = "-----------Nota Más Baja-----------<br><br>";
             var i;
             notas = []
             for(i=0;i<json.length;i++){
              notas.push(json[i].nota)
             }
-            var minimo = Math.min.apply(null , notas);
-            document.getElementById("lista").innerHTML = dato + "<br>"+minimo;            
+            var minimo = Math.min.apply(null , notas);            
+            for(i=0;i<json.length;i++){
+                if(json[i].nota === minimo){
+                    document.getElementById("lista").innerHTML = dato+"Codigo: "+json[i].codigo+"<br>Nombre: "+json[i].nombre+"<br>Nota: "+json[i].nota+"<br><br>";
+                }
+            }        
         }
         function colocarDatos(){
              leerDatos(estudiantes);
         }
-
         function mostrarPromedio(){
             calcularPromedio(estudiantes);
         }
